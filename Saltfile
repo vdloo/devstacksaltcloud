@@ -1,0 +1,4 @@
+---
+salt-cloud:
+  log_file: /tmp/log
+  config_dir: ./saltstack
