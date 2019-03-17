@@ -14,6 +14,10 @@ stack@devstack:~/devstack$ . openrc
 WARNING: setting legacy OS_TENANT_NAME to support cli tools.
 stack@devstack:~/devstack$ openstack security group rule create --proto icmp --dst-port 0 default
 stack@devstack:~/devstack$ openstack security group rule create --proto tcp --dst-port 22 default
+
+# Open up the salt ports
+openstack security group rule create --proto tcp --dst-port 4505 default
+openstack security group rule create --proto tcp --dst-port 4506 default
 ```
 
 Next, get some Ubuntu and Debian images and add them:
@@ -56,4 +60,9 @@ salt-cloud --list-images openstack
 # create a VM in the demo tenant
 # add -l debug for debugging
 salt-cloud -p ubuntu myubuntuinstance 
+```
+
+```
+# deploy the salt masters (will deploy master first then the rest in parallel)
+salt-cloud -m saltstack/cloud.maps.d/saltmasters.map -P -y
 ```

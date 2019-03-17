@@ -1,0 +1,7 @@
+debian:
+  - saltmaster:
+      make_master: True
+      master:
+        user: root
+  - saltminion1
+  - saltminion2
