@@ -4,13 +4,13 @@ cd ~/devstack
 ./stack.sh
 . openrc
 openstack keypair create --public-key ~/.ssh/id_rsa.pub devstack
-openstack security group rule create --proto icmp --dst-port 0 default
-openstack security group rule create --proto tcp --dst-port 22 default
-openstack security group rule create --proto tcp --dst-port 4505 default
-openstack security group rule create --proto tcp --dst-port 4506 default
-openstack security group rule create --proto tcp --dst-port 8300 default
-openstack security group rule create --proto tcp --dst-port 8302 default
-openstack security group rule create --proto udp --dst-port 8302 default
+openstack security group list | grep default | awk '{print$2}' | xargs -I {} openstack security group rule create --proto icmp --dst-port 0 {}
+openstack security group list | grep default | awk '{print$2}' | xargs -I {} openstack security group rule create --proto tcp --dst-port 22 {}
+openstack security group list | grep default | awk '{print$2}' | xargs -I {} openstack security group rule create --proto tcp --dst-port 4505 {}
+openstack security group list | grep default | awk '{print$2}' | xargs -I {} openstack security group rule create --proto tcp --dst-port 4506 {}
+openstack security group list | grep default | awk '{print$2}' | xargs -I {} openstack security group rule create --proto tcp --dst-port 8300 {}
+openstack security group list | grep default | awk '{print$2}' | xargs -I {} openstack security group rule create --proto tcp --dst-port 8302 {}
+openstack security group list | grep default | awk '{print$2}' | xargs -I {} openstack security group rule create --proto udp --dst-port 8302 {}
 mkdir -p ~/downloaded_images
 cd ~/downloaded_images
 wget http://cdimage.debian.org/cdimage/openstack/current/debian-9.8.2-20190303-openstack-amd64.qcow2
